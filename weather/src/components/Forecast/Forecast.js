@@ -5,27 +5,45 @@ const Forecast = () => {
 	let [city, setCity] = useState('');
 	let [unit, setUnit] = useState('imperial')
 	let [responseObj, setResponseObj] = useState({});
-	const uriEncodeCity = encodeURIComponent(city)
-   function getForecast(evt) {
+	const uriEncodeCity = encodeURIComponent(city);
+
+// Fetching from the Server
+	function callServer(evt){
+		evt.preventDefault();
+		fetch("http://localhost:4000/expnodepoc")
+		.then(res => res.text())
+		.then(res => {
+			 setResponseObj(res)
+		})
+		.then(res => {
+			console.log(res);
+		})
+		.catch(err => {
+			console.log(err);
+		});
+	}
+
+// Fetching from weather Froecast API
+	function getForecast(evt) {
       // weather data fetch function will go here
       evt.preventDefault();
       fetch(`https://community-open-weather-map.p.rapidapi.com/weather?q=${uriEncodeCity}`, {
-	"method": "GET",
-	"headers": {
-		"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
-		"x-rapidapi-key": "ed74966a43msh26fa987f09d56f7p154111jsn8c04147c5bf3"
-	}
-})
-	.then(response => response.json())
-	.then(response => {
-	   setResponseObj(response)
-	})
-	.then(response => {
-		console.log(response);
-	})
-	.catch(err => {
-		console.log(err);
-});
+				"method": "GET",
+				"headers": {
+					"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
+					"x-rapidapi-key": "ed74966a43msh26fa987f09d56f7p154111jsn8c04147c5bf3"
+				}
+			})
+			.then(response => response.json())
+			.then(response => {
+			   setResponseObj(response)
+			})
+			.then(response => {
+				console.log(response);
+			})
+			.catch(err => {
+				console.log(err);
+		});
    }
    return (
        // JSX code will go here
@@ -34,6 +52,7 @@ const Forecast = () => {
 			<div>
 				<Conditions responseObj={responseObj}/>
 			</div>
+
 			<form onSubmit={getForecast}>
 				{/*
 				<select id ="city" name="city" onChange={(e) => }>
@@ -44,13 +63,13 @@ const Forecast = () => {
 				</select>
 				*/
 				}
-				
-				<input 
-					type="text" 
-					placeholder="Enter City" 
-					maxLength="50" 
-					value={city} 
-					id="citystr" 
+
+				<input
+					type="text"
+					placeholder="Enter City"
+					maxLength="50"
+					value={city}
+					id="citystr"
 					name="citystr"
 					onChange={(e) => setCity(e.target.value)}
 				/>
@@ -65,7 +84,7 @@ const Forecast = () => {
 						/>
 						Fahrenheit
 					</label>
-			
+
 				<label>
 					<input
 						type="radio"
@@ -81,6 +100,9 @@ const Forecast = () => {
 				<button type="submit">Get Forecast</button>
 
 			</form>
+			<div>
+				<button onClick = {callServer}>Check Server !</button>
+			</div>
        </div>
    )
 }
