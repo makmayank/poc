@@ -10,7 +10,7 @@ const Forecast = () => {
 // Fetching from the Server
 	function callServer(evt){
 		evt.preventDefault();
-		fetch("http://localhost:4000/expnodepoc")
+		fetch("http://localhost:4000/")
 		.then(res => res.text())
 		.then(res => {
 			 setResponseObj(res)

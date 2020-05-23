@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import Forecast from "./components/Forecast/Forecast";
+import POCserver from "./components/POCserver/POCserver";
+import Student from "./components/Student/Student"
 {/*
 class App extends  React.Component{
   constructor(props){
@@ -35,10 +37,10 @@ function App() {
  return (
    <div className="App">
      <header className="App-header">
-       <h1>POC React Weather</h1>
+       <h1>POC React</h1>
      </header>
      <main className="App-main">
-       <Forecast />
+      <Student />
      </main>
      <footer className="App-footer">
        Poc(mak)
